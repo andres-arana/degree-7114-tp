@@ -1,0 +1,379 @@
+\documentclass[a4paper,11pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Paquetes utilizados
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Gráficos complejos
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{placeins}
+
+% Soporte para el lenguaje español
+\usepackage{textcomp}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\DeclareUnicodeCharacter{B0}{\textdegree}
+\usepackage[spanish]{babel}
+
+% Matemáticos
+\usepackage{amssymb,amsmath}
+
+% Tablas complejas
+\usepackage{multirow}
+
+% Formato de párrafo
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Documento
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\tableofcontents
+\clearpage
+
+\part{Modelo propuesto por el grupo de trabajos prácticos}
+
+\section{Objetivo}
+
+Determinar la cantidad a producir de cada uno de los productos y las compras de
+materia prima correspondientes en un mes para maximizar el beneficio neto
+obtenido de las ventas de los productos menos los costos asociados a su
+producción.
+
+\section{Hipótesis}
+
+\begin{enumerate}
+
+  \item Todo lo producido es vendido. No existe beneficio económico alguno en
+    acumular stock de los productos.
+
+  \item Las proyecciones de demanda actual son exactas. Se puede vender hasta
+    exactamente cada uno de los valores preestablecidos.
+
+  \item No existe inflación o, en caso de existir, la relación entre los
+    precios de costos y de ventas se mantiene constante en el periodo
+    analizado.
+
+  \item El proceso de mezclado de los productos produce una mezcla
+    completamente homogénea. Cada producto final embolsado posee una
+    composición de maíz, alfalfa, sorgo y cáscara de arroz en igual porcentaje
+    a la composición correspondiente al total producido para el producto.
+
+  \item Se dispone de materia prima y mano de obra suficiente para producir
+    cualquier cantidad de producto. El único factor limitante son las horas
+    mensuales del proceso de mezclado.
+
+  \item No existen costos adicionales de mano de obra, o bien están incluidos
+    en el costo del proceso de mezclado.
+
+  \item No hay ningún tipo de merma en todo el proceso productivo. El peso
+    total combinado de la materia prima comprada corresponde con el peso total
+    de lo producido.
+
+  \item Se supone que la cáscara de arroz no aporta ningún tipo de nutriente,
+    por ser de difícil digestión. Es decir, tiene \(0\%\) carbohidratos,
+    \(0\%\) proteínas y \(0\%\) fibras.
+
+\end{enumerate}
+
+\section{Modelo}
+
+\subsection{Variables utilizadas}
+
+\begin{table}[h!t]
+  \centering
+  \begin{tabular}{ | c | c | p{7cm} | }
+    \hline
+    \textbf{Variable} & \textbf{Unidades}          & \textbf{Descripción} \\ \hline
+     \(P_p\)          & \(\text{kg} / \text{mes}\) & Cantidad producida mensualmente para el producto PF. \\ \hline
+     \(P_c\)          & \(\text{kg} / \text{mes}\) & Cantidad producida mensualmente para el producto CF. \\ \hline
+     \(P_g\)          & \(\text{kg} / \text{mes}\) & Cantidad producida mensualmente para el producto GF. \\ \hline
+  \end{tabular}
+  \caption{Variables relacionadas con las cantidades de productos}
+\end{table}
+
+\begin{table}[h!t]
+  \centering
+  \begin{tabular}{ | c | c | p{7cm} | }
+    \hline
+    \textbf{Variable} & \textbf{Unidades}          & \textbf{Descripción} \\ \hline
+     \(C_m\)          & \(\text{kg} / \text{mes}\) & Cantidad total comprada mensualmente para el maíz. \\ \hline
+     \(C_a\)          & \(\text{kg} / \text{mes}\) & Cantidad total comprada mensualmente para el alfalfa. \\ \hline
+     \(C_s\)          & \(\text{kg} / \text{mes}\) & Cantidad total comprada mensualmente para el sorgo. \\ \hline
+     \(C_c\)          & \(\text{kg} / \text{mes}\) & Cantidad total comprada mensualmente para la cáscara de arroz. \\ \hline
+  \end{tabular}
+  \caption{Variables relacionadas con las cantidades de las materias primas compradas.}
+\end{table}
+
+\begin{table}[h!t]
+  \centering
+  \begin{tabular}{ | c | c | p{7cm} | }
+    \hline
+    \textbf{Variable} & \textbf{Unidades}          & \textbf{Descripción} \\ \hline
+              \(E_m\) & \(\text{kg} / \text{mes}\) & Cantidad comprada mensualmente en exceso sobre lo pactado para el maíz. \\ \hline
+              \(D_m\) & \(\text{kg} / \text{mes}\) & Cantidad comprada mensualmente en defecto sobre lo pactado para el maíz. \\ \hline
+              \(E_a\) & \(\text{kg} / \text{mes}\) & Cantidad comprada mensualmente en exceso sobre lo pactado para el alfalfa. \\ \hline
+              \(D_a\) & \(\text{kg} / \text{mes}\) & Cantidad comprada mensualmente en defecto sobre lo pactado para el alfalfa. \\ \hline
+              \(E_s\) & \(\text{kg} / \text{mes}\) & Cantidad comprada mensualmente en exceso sobre lo pactado para el sorgo. \\ \hline
+              \(D_s\) & \(\text{kg} / \text{mes}\) & Cantidad comprada mensualmente en defecto sobre lo pactado para el sorgo. \\ \hline
+              \(E_c\) & \(\text{kg} / \text{mes}\) & Cantidad comprada mensualmente en exceso sobre lo pactado para la cáscara de arroz. \\ \hline
+              \(D_c\) & \(\text{kg} / \text{mes}\) & Cantidad comprada mensualmente en defecto sobre lo pactado para cáscara de arroz. \\ \hline
+              \(E_h\) & \(\text{kg} / \text{mes}\) & Cantidad de producción total elaborada en exceso sobre el límite establecido para la producción en régimen regular. \\ \hline
+              \(D_h\) & \(\text{kg} / \text{mes}\) & Cantidad de producción total elaborada en defecto sobre el límite establecido para la producción en régimen regular. \\ \hline
+  \end{tabular}
+  \caption{Variables relacionadas con el exceso por sobre las diferentes metas de producción o compra de materias primas.}
+\end{table}
+
+\begin{table}[h!t]
+  \centering
+  \begin{tabular}{ | c | c | p{7cm} | }
+    \hline
+    \textbf{Variable} & \textbf{Unidades}          & \textbf{Descripción} \\ \hline
+           \(M_{mp}\) & \(\text{kg} / \text{mes}\) & Cantidad de maíz utilizado en la mezcla del producto PF. \\ \hline
+           \(M_{mc}\) & \(\text{kg} / \text{mes}\) & Cantidad de maíz utilizado en la mezcla del producto CF. \\ \hline
+           \(M_{mg}\) & \(\text{kg} / \text{mes}\) & Cantidad de maíz utilizado en la mezcla del producto GF. \\ \hline
+           \(M_{ap}\) & \(\text{kg} / \text{mes}\) & Cantidad de alfalfa utilizado en la mezcla del producto PF. \\ \hline
+           \(M_{ac}\) & \(\text{kg} / \text{mes}\) & Cantidad de alfalfa utilizado en la mezcla del producto CF. \\ \hline
+           \(M_{ag}\) & \(\text{kg} / \text{mes}\) & Cantidad de alfalfa utilizado en la mezcla del producto GF. \\ \hline
+           \(M_{sp}\) & \(\text{kg} / \text{mes}\) & Cantidad de sorgo utilizado en la mezcla del producto PF. \\ \hline
+           \(M_{sc}\) & \(\text{kg} / \text{mes}\) & Cantidad de sorgo utilizado en la mezcla del producto CF. \\ \hline
+           \(M_{sg}\) & \(\text{kg} / \text{mes}\) & Cantidad de sorgo utilizado en la mezcla del producto GF. \\ \hline
+           \(M_{cp}\) & \(\text{kg} / \text{mes}\) & Cantidad de cáscara de arroz utilizado en la mezcla del producto PF. \\ \hline
+           \(M_{cc}\) & \(\text{kg} / \text{mes}\) & Cantidad de cáscara de arroz utilizado en la mezcla del producto CF. \\ \hline
+           \(M_{cg}\) & \(\text{kg} / \text{mes}\) & Cantidad de cáscara de arroz utilizado en la mezcla del producto GF. \\ \hline
+  \end{tabular}
+  \caption{Variables relacionadas con las mezclas de las materias primas constituyentes de los diferentes productos.}
+\end{table}
+
+\FloatBarrier
+
+\subsection{Planteo matemático}
+
+Se desea maximizar el siguiente funcional:
+
+\[
+  \text{MAX} Z = \text{V} - \text{CC} - \text{CM} - \text{CE}
+\]
+
+El funcional se compone de los ingresos por ventas V, los costos por compras de
+materia prima CC, los costos por mezclado CM y los costos por embolsado CE.
+Cada uno de los términos se encuentran detallados en las siguientes ecuaciones:
+
+\begin{equation}\label{eq:ventas}
+  \text{V} = 15 P_p + 12 P_c + 10 P_g \\
+\end{equation}
+
+\begin{equation}\label{eq:cc}
+  \text{CC} = (5 C_m + 8 C_a + 10 C_s + 2 C_c) + (0.5 E_m + 0.8 E_a + 1 E_s + 0.2 E_c) \\
+\end{equation}
+
+\begin{equation}\label{eq:cm}
+  \text{CM} = 2 (P_p + P_c + P_g) + 1 E_h \\
+\end{equation}
+
+\begin{equation}\label{eq:ce}
+  \text{CE} = 0.5 (P_p + P_c + P_g)
+\end{equation}
+
+En la ecuación \ref{eq:ventas} se detallan los ingresos por los productos
+vendidos de acuerdo a los precios establecidos.
+
+En la ecuación \ref{eq:cc} se detallan los costos por las compras de materia
+prima. Los mismos se componen de dos partes, por un lado el costo por el precio
+pactado hasta el límite acordado y por el otro los recargos del \(10\%\) para
+todo lo que sea exceso por sobre el máximo disponible de acuerdo al pacto.
+
+En la ecuación \ref{eq:cm} se detallan los costos por el mezclado de las
+materias primas al preparar los productos. Nuevamente se discriminan dos
+componentes: por un lado el costo original por debajo del límite del régimen
+regular y por el otro el recargo del \(50\%\) en régimen de tiempo extra.
+
+En la ecuación \ref{eq:ce} se detallan los costos por el embolsado.
+
+Cada una de las materias primas compradas se distribuye en las mezclas de los
+productos elaborados:
+
+\[
+  C_m = M_{mp} + M_{mc} + M_{mg}
+\]
+\[
+  C_a = M_{ap} + M_{ac} + M_{ag}
+\]
+\[
+  C_s = M_{sp} + M_{sc} + M_{sg}
+\]
+\[
+  C_c = M_{cp} + M_{cc} + M_{cg}
+\]
+
+Además, cada producto se constituye por la mezcla de las materias primas
+involucradas:
+
+\[
+  P_p = M_{mp} + M_{ap} + M_{sp} + M_{cp}
+\]
+\[
+  P_c = M_{mc} + M_{ac} + M_{sc} + M_{cc}
+\]
+\[
+  P_g = M_{mg} + M_{ag} + M_{sg} + M_{cg}
+\]
+
+Cada producto tiene una composición particular de nutrientes que debe
+respetarse. Para PF, la composición de nutrientes se representa como sigue:
+
+\[
+  0.3 M_{mp} + 0.25 M_{ap} + 0.25 M_{sp} \leq 0.4 P_p
+\]
+\[
+  0.12 M_{mp} + 0.15 M_{ap} + 0.18 M_{sp} \geq 0.1 P_p
+\]
+\[
+  0.58 M_{mp} + 0.60 M_{ap} + 0.57 M_{sp} \leq 0.6 P_p
+\]
+
+Para CF, la composición es la siguiente:
+
+\[
+  0.3 M_{mc} + 0.25 M_{ac} + 0.25 M_{sc} \leq 0.5 P_c
+\]
+\[
+  0.12 M_{mc} + 0.15 M_{ac} + 0.18 M_{sc} \geq 0.12 P_c
+\]
+
+Para GF, la composición es:
+
+\[
+  0.3 M_{mg} + 0.25 M_{ag} + 0.25 M_{sg} \leq 0.35 P_g
+\]
+\[
+  0.12 M_{mg} + 0.15 M_{ag} + 0.18 M_{sg} \geq 0.15 P_g
+\]
+
+Por otro lado, las estimaciones de demanda suponen un límite a la producción:
+
+\[
+  P_p \leq 5000
+\]
+\[
+  P_c \leq 8000
+\]
+\[
+  P_g \leq 2500
+\]
+
+Las cantidades de materia prima pactadas y los excesos correspondientes se
+modelan como sigue:
+
+\[
+  C_m - 7000 = E_m - D_m
+\]
+\[
+  C_a - 5000 = E_a - D_a
+\]
+\[
+  C_s - 2000 = E_s - D_s
+\]
+\[
+  C_c - 10000 = E_c - D_c
+\]
+
+Por último, el régimen de mezclado regular implica que pueden procesarse hasta
+\(70 (\text{kg} / \text{h}) 200 (\text{hs} / \text{mes}) = 14.000 (\text{kg} /
+\text{mes})\) en régimen regular, y hasta \(60 (\text{kg} / \text{h}) 50
+(\text{hs} / \text{mes}) = 3.000 (\text{kg} / \text{mes})\) en régimen de
+tiempo extra. Esto implica que las condiciones de excesos de horas en régimen
+de tiempo extra y los límites de producción asociados al proceso de mezclado
+se pueden representar por:
+
+\[
+  (P_p + P_c + P_g) - 14000 = E_h - D_h
+\]
+\[
+  E_h \leq 3000
+\]
+
+\clearpage
+\part{Modelo propuesto por el turno}
+
+\section{Objetivo}
+
+Determinar la cantidad de máquinas virtuales A y B a ejecutar en el servidor de
+virtualización durante un periodo indeterminado para maximizar el ahorro
+generado por las máquinas virtuales en ejecución.
+
+\section{Hipótesis}
+
+\begin{enumerate}
+
+  \item No hay desperdicio de RAM o disco rígido por efectos de padding. Los
+    recursos utilizados por las máquinas virtuales instaladas son equivalentes
+    a la suma de los recursos ocupados individualmente por cada una de ellas.
+
+  \item No hay consumo de ningún tipo de recurso por parte del software de
+    virtualización en el servidor. Los recursos del mismo están completamente
+    avocados a las máquinas virtuales individuales.
+
+  \item No hay inflación, o si la hay afecta de la misma manera a los montos de
+    ahorro individuales de cada máquina.
+
+  \item No hay límite en la cantidad de máquinas virtuales que se pueden
+    instalar. El único límite está en los recursos disponibles en el servidor
+    de virtualización.
+
+  \item No hay costos de ningún tipo por instalar copias adicionales de una
+    máquina virtual.
+
+\end{enumerate}
+
+\section{Modelo}
+
+\subsection{Variables utilizadas}
+
+\begin{table}[h!t]
+  \centering
+  \begin{tabular}{ | c | c | p{7cm} | }
+    \hline
+    \textbf{Variable} & \textbf{Unidades} & \textbf{Descripción} \\ \hline
+                    A & Instancias        & Cantidad de máquinas virtuales A instaladas. \\ \hline
+                    B & Instancias        & Cantidad de máquinas virtuales B instaladas. \\ \hline
+  \end{tabular}
+  \caption{Variables utilizadas en la resolución del modelo.}
+\end{table}
+
+\FloatBarrier
+
+\subsection{Planteo matemático}
+
+Se desea maximizar el siguiente funcional:
+
+\[
+  \text{MAX} Z = 5000 A + 3000 B
+\]
+
+Los recursos disponibles en los servidores de virtualización condicionan la
+cantidad de máquinas virtuales instalables de acuerdo a las siguientes
+ecuaciones:
+
+\begin{equation}
+  2 A + 1 B \leq 15
+\end{equation}
+\begin{equation}
+  6 A + 4 B \leq 60
+\end{equation}
+\begin{equation}
+  1 A + 3 B \leq 40
+\end{equation}
+
+Por otro lado, la cantidad de máquinas virtuales mínimas a instalar se modela
+como sigue:
+
+\begin{equation}
+  A + B \geq 12
+\end{equation}
+
+\end{document}
