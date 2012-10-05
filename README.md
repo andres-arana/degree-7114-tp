@@ -5,7 +5,14 @@ cursada de la materia (71.14) Modelos y Optimización I en la FIUBA
 
 ## Organización
 
-En cada subcarpeta del repositorio está el desarrollo de cada uno de las
-entregas del trabajo práctico obligatorio para firmar la cursada de la materia.
-También se incluye material adicional teórico y práctico.
+El repositorio se organiza en los siguientes subdirectorios:
+
+* **tp**: Contiene los informes y otros archivos necesarios al desarrollo del
+  trabajo práctico obligatorio para firmar la cursada de la materia. Incluye el
+  desarrollo del informe en latex de cada entrega individual, y los anexos con
+  correcciones correspondientes.
+
+* **practica**: Guias de trabajos prácticos y ejercicios de la materia.
+
+* **teorica**: Diapositivas y transparencias utilizadas en las clases teóricas.
 
