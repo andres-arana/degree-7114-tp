@@ -1,0 +1,127 @@
+\documentclass[a4paper,11pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Paquetes utilizados
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Gráficos complejos
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{placeins}
+
+% Soporte para el lenguaje español
+\usepackage{textcomp}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\DeclareUnicodeCharacter{B0}{\textdegree}
+\usepackage[spanish]{babel}
+
+% Matemáticos
+\usepackage{amssymb,amsmath}
+
+% Tablas complejas
+\usepackage{multirow}
+
+% Formato de párrafo
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+
+% Formato de encabezados y pies de página
+\usepackage{fancyhdr}
+\fancyhead{}
+\fancyfoot{}
+\setlength\headheight{40pt}
+\fancyhead[L]{
+  Facultad de Ingeniería \\ 
+  Universidad de Buenos Aires
+}
+\fancyhead[R]{
+  71.14 - Modelos y Optimización I \\
+  Trabajo Práctico - Correcciones 1° entrega
+}
+\fancyfoot[C]{
+  \thepage
+}
+\pagestyle{fancy}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Documento
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{\textbf{Trabajo Práctico} - Correcciones 1° entrega}
+\author{Andrés Gastón Arana, \textit{P. 86.203}}
+\date{}
+
+\begin{document}
+
+\maketitle
+\clearpage
+
+\part{Modelo propuesto por el grupo de trabajos prácticos}
+
+\section{Análisis}
+
+El problema propuesto guarda similitud con otros problemas de distribución de
+materias primas y determinación de producción óptima para la maximización de
+los beneficios por su venta. La dificultad principal del mismo consiste en el
+modelado de las condiciones de composición de cada producto de acuerdo a los
+nutrientes aportados por cada materia prima, con la particularidad de que la
+composición de nutrientes en cada unidad de materia prima es indivisible.
+
+\section{Modificaciones al objetivo}
+
+Dado que la proporción de cada producto no es implícita de acuerdo al objetivo
+enunciado en la resolución original del trabajo práctico, se modifica el
+objetivo del mismo. El nuevo enunciado es el siguiente:
+
+Determinar la cantidad a producir de cada uno de los productos, las compras de
+materias primas correspondientes y la proporción de componentes en cada
+producto en un mes para maximizar el beneficio neto obtenido de las ventas de
+los productos menos los costos asociados a su producción.
+
+\section{Hipótesis}
+
+Se decidió agregar hipótesis adicionales de acuerdo a los comentarios
+observados en la devolución del trabajo práctico.
+
+\begin{enumerate}
+
+  \item No hay obligación alguna para que todos los componentes sean destinados
+    a todos los productos. Se posibilita que un producto no contenga ninguna
+    cantidad de alguno de los componentes, siempre y cuando cumpla con los
+    requisitos de nutrientes pedidos.
+
+   \item Los productos cuyas restricciones a la composición en nutrientes es un
+     máximo (como por ejemplo, el máximo de \(40\%\) para los carbohidratos en
+     el producto PF) implican que puede darse el caso de que ese producto no
+     contenga cantidad alguna de ese nutriente. Sólo se toma como límite
+     superior el máximo dado, sin existir límite inferior a dicha proporción.
+
+\end{enumerate}
+
+\section{Modelo}
+
+\subsection{Planteo matemático}
+
+De acuerdo a los comentarios respecto de la presentación del funcional, se
+expanden las variables en preparación para la segunda entrega. El funcional
+completo es el siguientes:
+
+\[
+  \text{MAX} z = 12.5 P_p + 9.5 P_c + 7.5 P_g - 5 C_m - 8 C_a - 10 C_s - 2 C_c - 0.5 E_m - 0.8 E_a - 1 E_s - 0.2 E_c - 1 E_h
+\]
+
+En este se han expandido las variables en el funcional de la primer entrega, y
+se opero algebraicamente para que cada variable aparezca una única vez con un
+único coeficiente.
+
+\part{Modelo propuesto por el turno}
+
+\section{Análisis}
+
+El problema es un problema simple de optimización lineal, modelado con dos
+variables únicamente. Es interesante el dominio del problema por estar
+relacionado con la informática, pero el modelado de todas las restricciones se
+puede reducir a la relación de dos únicas variables, con coeficientes
+relativamente pequeños.
+
+\end{document}
