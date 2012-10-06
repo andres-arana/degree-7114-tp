@@ -1,0 +1,74 @@
+  Global optimal solution found.
+  Objective value:                              73416.67
+  Infeasibilities:                              0.000000
+  Total solver iterations:                            10
+
+  Model Class:                                        LP
+
+  Total variables:                     29
+  Nonlinear variables:                  0
+  Integer variables:                    0
+
+  Total constraints:                   24
+  Nonlinear constraints:                0
+
+  Total nonzeros:                      92
+  Nonlinear nonzeros:                   0
+
+
+            Variable           Value        Reduced Cost
+                  PP        5000.000            0.000000
+                  PC        8000.000            0.000000
+                  PG        0.000000            0.000000
+                  CM        12166.67            0.000000
+                  CA        0.000000            0.000000
+                  CS        0.000000            0.000000
+                  CC        833.3333            0.000000
+                  EM        5166.667            0.000000
+                  EA        0.000000           0.8000000
+                  ES        0.000000            1.000000
+                  EC        0.000000           0.2000000
+                  EH        0.000000            1.000000
+                 MMP        4166.667            0.000000
+                 MMC        8000.000            0.000000
+                 MMG        0.000000            0.000000
+                 MAP        0.000000            1.625000
+                 MAC        0.000000            1.625000
+                 MAG        0.000000           0.5000000
+                 MSP        0.000000            2.750000
+                 MSC        0.000000            2.750000
+                 MSG        0.000000           0.5000000
+                 MCP        833.3333            0.000000
+                 MCC        0.000000            0.000000
+                 MCG        0.000000            4.500000
+                  DM        0.000000           0.5000000
+                  DA        5000.000            0.000000
+                  DS        2000.000            0.000000
+                  DC        9166.667            0.000000
+                  DH        1000.000            0.000000
+
+                 Row    Slack or Surplus      Dual Price
+           FUNCIONAL        73416.67            1.000000
+   DISTRIBUCION_MP_M        0.000000           -5.500000
+   DISTRIBUCION_MP_A        0.000000           -8.000000
+   DISTRIBUCION_MP_S        0.000000           -10.00000
+   DISTRIBUCION_MP_C        0.000000           -2.000000
+      COMPOSICION_PP        0.000000            2.000000
+      COMPOSICION_PC        0.000000            2.000000
+      COMPOSICION_PG        0.000000           -2.500000
+     NUTRIENTES_C_PP        750.0000            0.000000
+     NUTRIENTES_P_PP        0.000000           -29.16667
+     NUTRIENTES_F_PP        583.3333            0.000000
+     NUTRIENTES_C_PC        1600.000            0.000000
+     NUTRIENTES_P_PC        0.000000           -29.16667
+     NUTRIENTES_C_PG        0.000000            0.000000
+     NUTRIENTES_P_PG        0.000000           -66.66667
+          DEMANDA_PP        0.000000            7.583333
+          DEMANDA_PC        0.000000            4.000000
+          DEMANDA_PG        2500.000            0.000000
+     PACTADO_MP_MAIZ        0.000000           0.5000000
+  PACTADO_MP_ALFALFA        0.000000            0.000000
+    PACTADO_MP_SORGO        0.000000            0.000000
+  PACTADO_MP_CASCARA        0.000000            0.000000
+         HORAS_EXTRA        0.000000            0.000000
+  LIMITE_HORAS_EXTRA        3000.000            0.000000

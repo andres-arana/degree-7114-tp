@@ -1,0 +1,7 @@
+ MODEL:
+ [FUNCIONAL] MAX= 5000 * A + 3000 * B;
+ [RAM] 2 * A + 1 * B <= 15;
+ [DISCO] 6 * A + 4 * B <= 60;
+ [PROCESADOR] 1 * A + 3 * B <= 40;
+ [MAQUINAS] A + B >= 12;
+ END
