@@ -1,0 +1,373 @@
+\documentclass[a4paper,11pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Paquetes utilizados
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Gráficos complejos
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{placeins}
+
+% Soporte para el lenguaje español
+\usepackage{textcomp}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\DeclareUnicodeCharacter{B0}{\textdegree}
+\usepackage[spanish]{babel}
+
+% Código fuente embebido
+\usepackage{listings}
+\lstset{
+  basicstyle=\footnotesize,
+  showspaces=false,
+  showstringspaces=false,
+  breaklines=true,
+  frame=single
+}
+
+% Matemáticos
+\usepackage{amssymb,amsmath}
+
+% Tablas complejas
+\usepackage{multirow}
+
+% Formato de párrafo
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+
+% Formato de encabezados y pies de página
+\usepackage{fancyhdr}
+\fancyhead{}
+\fancyfoot{}
+\setlength\headheight{40pt}
+\fancyhead[L]{
+  Facultad de Ingeniería \\ 
+  Universidad de Buenos Aires
+}
+\fancyhead[R]{
+  71.14 - Modelos y Optimización I \\
+  Trabajo Práctico - 3° entrega
+}
+\fancyfoot[C]{
+  \thepage
+}
+\pagestyle{fancy}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Documento
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{\textbf{Trabajo Práctico} - 3° entrega}
+\author{Andrés Gastón Arana, \textit{P. 86.203}}
+\date{}
+
+\begin{document}
+
+\maketitle
+\clearpage
+
+\part{Modelo propuesto por el turno}
+
+\section{Análisis de variaciones de precios y disponibilidades} \label{sec:original}
+
+Se utilizó el software \textit{LINGO} nuevamente para realizar el análisis de
+variaciones de precios y disponibilidades de esta sección. A modo de
+referencia, se incluye a continuación el modelo utilizado dentro de la
+herramienta para dicho análisis:
+
+\lstinputlisting{lingo/original.lng}
+
+De este modelo se obtiene a través del software la solución discutida en
+anteriores trabajos prácticos:
+
+\lstinputlisting{lingo/original.out}
+
+\subsection{Curva de oferta y valor del funcional para la línea PF}
+
+De acuerdo a la solución obtenida se observa que la misma es válida para
+cualquier coeficiente de \(P_p\) mayor que \(4.91666\), que corresponde a
+cualquier precio para la línea PF mayor que \(7.416666\). Para estos valores,
+se decide productir y vender \(5000\) kilogramos de producto de dicha línea.
+
+Si variamos el coeficiente hasta \(4.915\) y resolvemos nuevamente el modelo
+utilizando el software, obtenemos un nuevo valor de \(P_p\) con su
+correspondiente rango de variación. Análogamente se procede resolviendo
+versiones modificadas del modelo hasta obtener un coeficiente mínimo, de manera
+de acumular los segmentos cubriendo la totalidad del eje real.
+
+A continuación sumarizamos los resultados obtenidos. Cada renglón de la
+siguiente tabla implica una corrida del software para detectar los valores de
+producción de la línea PF, su correspondiente rango de variación y el valor del
+funcional para dicho rango de precios:
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ | c | c | c | c | c | c | }
+  \hline
+  Pmín.                 & Pmáx.     & Cmín.     & Cmáx.     & Producción & Funcional \\ \hline
+  -                     & \(7.416\) & -         & \(4.916\) & \(0\)      & \(35500\) \\ \hline
+              \(7.416\) & -         & \(4.916\) & -         & \(5000\)   & \(5000 (P - 2.5) + 10916.67\)\\ \hline
+
+  \hline
+\end{tabular}
+\caption{Variaciones del precio del producto PF}
+\end{table}
+
+\FloatBarrier
+
+En esta tabla, P es el precio y C es el coeficiente total resultante en el
+funcional (igual a \(P - 2.5\)). La tabla indica que para cualquier precio
+menor a \(7.416\) no se produce producto en la línea PF, y el funcional
+permanece estable en \(35500\). Para cualquier precio superior a este valor, se
+producen \(5000\) unidades de dicho producto, y el funcional varia linealmente
+con el precio.
+
+\subsection{Valor marginal para disponibilidad de alfalfa}
+
+Realizando un trabajo análogo al detallado en la sección anterior, se analizará
+el valor marginal de la restricción de la cantidad máxima pactada a precio
+especial para la alfalfa. Se ubica en la corrida original presentada en la
+sección \ref{sec:original} la restricción correspondiente en el modelo
+\textbf{PACTADO\_MP\_ALFALFA}.
+
+Cabe destacar que en este caso particular, para la solución óptima no se está
+comprando alfalfa para ningún uso. Esto significa que la limitación no tiene
+efecto sobre el funcional; no importa si la disponibilidad fuera de \(500kg\),
+\(5000kg\) o \(50000kg\), es más económico como fue determinado en entregas
+anteriores comprar maiz hasta cubrir los requerimientos protéicos del PF y
+completar el kilaje a producir con cáscara de arroz, incluso cuando eso
+significa pagar en exceso por el maiz. Esto tiene sentido: el costo de la
+alfalfa a precio especial pactado es de \(\$10\) el kilogramo, que es superior
+incluso a comprar el maiz con recargo a \(\$5.5\).
+
+Remitiéndonos exclusivamente a la solución calculada por el software, el slack
+de la restricción está en cero, y tiene valor marginal \(0\). Más aún, el rango
+de valores en los que la base no cambia es de \(0\) a infinito, por lo que este
+valor marginal se mantiene para todo valor de la restricción.
+
+\section{Análisis de propuesta económica}
+
+Primeramente, ubicamos el valor de la variable que representa el trabajo en
+horas extra en la resolución original presentada en la sección
+\ref{sec:original}. Dicha variable toma el valor \(0\), por lo que no se están
+usando horas extra. Más aún, la variable DH es de \(1000\), lo que significa
+que se están trabajando en total \(13000\) kilogramos, \(1000\) kilogramos por
+debajo de los \(14000\) kilogramos mensuales que se pueden fabricar en régimen
+regular. El recurso de horas extra, representado por la restricción
+\textbf{LIMITE\_HORAS\_EXTRA}, no tiene valor marginal por no estar saturado.
+
+De aquí podemos concluir que, si suponemos que las horas extra no pueden
+sustituir las horas de producción en régimen regular, no conviene para ningún
+precio pagar por horas extra. El único caso hipotético en el que convendría
+adquirir capacidad productiva, que no voy a analizar por considerarlo un caso
+degenerado del enunciado, es que el valor hora de lo que ofrece la consultora
+tenga un costo menor que el costo de la hora de régimen regular de la empresa.
+Sin embargo, este caso no podrían ser consideradas como horas extra y debería
+adaptar el modelo para permitir este tipo de decisiones.
+
+\part{Modelo propuesto por el grupo de trabajos prácticos}
+
+\section{Análisis de nuevo producto}
+
+Para introducir el nuevo producto en el problema transcribo primaramente las
+tablas simplex iniciales y óptimas del problema:
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ | c | c | c || c | c | c | c | c | c | c | }
+  \hline
+  \(C_i\) & \(X_i\) & \(B_i\) & \(A_1\) & \(A_2\) & \(A_3\) & \(A_4\) & \(A_5\) & \(A_6\) & \(A_m\) \\ \hline
+    \(0\) & \(X_3\) & \(15\)  & \(2\)   & \(1\)   & \(1\)   & \(0\)   & \(0\)   & \(0\)   & \(0\) \\ \hline
+ \(0\)    & \(X_4\) & \(60\)  & \(6\)   & \(4\)   & \(0\)   & \(1\)   & \(0\)   & \(0\)   & \(0\) \\ \hline
+  \(0\)   & \(x_5\) & \(40\)  & \(1\)   & \(3\)   & \(0\)   & \(0\)   & \(1\)   & \(0\)   & \(0\) \\ \hline
+  \(-M\)  & \(m\)   & \(12\)  & \(1\)   & \(1\)   & \(0\)   & \(0\)   & \(0\)   & \(-1\)  & \(1\) \\ \hline
+\end{tabular}
+\caption{Tabla simplex inicial para el problema}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ | c | c | c || c | c | c | c | c | c | }
+  \hline
+  \(C_i\)  & \(X_i\) & \(B_i\) & \(A_1\) & \(A_2\) & \(A_3\)  & \(A_4\) & \(A_5\)  & \(A_6\) \\ \hline
+ \(5000\)  & \(X_1\) & \(1\)   & \(1\)   & \(0\)   & \(0.6\)  & \(0\)   & \(-0.2\) & \(0\) \\ \hline
+ \(0\)     & \(X_4\) & \(2\)   & \(0\)   & \(0\)   & \(-2.8\) & \(1\)   & \(-0.4\) & \(0\) \\ \hline
+  \(0\)    & \(x_6\) & \(2\)   & \(0\)   & \(0\)   & \(0.4\)  & \(0\)   & \(0.2\)  & \(1\) \\ \hline
+  \(3000\) & \(x_2\) & \(13\)  & \(0\)   & \(1\)   & \(-0.2\) & \(0\)   & \(0.4\)  & \(0\) \\ \hline
+\end{tabular}
+\caption{Tabla simplex óptima para el problema}
+\end{table}
+
+\FloatBarrier
+
+En la tabla óptima se removió la columna de \(A_m\), siguiendo la práctica
+común de eliminar la columna una vez que salió de la base para evitar cálculos
+adicionales que se reflejan en la columna de \(A_6\).
+
+Para obtener la columna de cambio de base, se extraen de la tabla óptima las
+columnas que originalmente estaban en la base, tomando en cuenta que la columna
+de \(A_6\) tenía el signo cambiado en la identidad original. Luego se
+premultiplica el vector de recursos utilizados por esta matriz, para obtener la
+nueva columna de la tabla óptima:
+
+\[
+  \begin{pmatrix}
+    0.6 & 0 & -0.2 & 0 \\
+   -2.8 & 1 & -0.4 & 0 \\
+    0.4 & 0 & 0.2  & -1 \\
+   -0.2 & 0 & 0.4  & 0
+  \end{pmatrix}
+  *
+  \begin{pmatrix}
+    4 \\
+    10 \\
+    2 \\
+    1
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    2 \\
+    -2 \\
+    1 \\
+    0
+  \end{pmatrix}
+\]
+
+Cuando se incluye esta nueva columna en la tabla óptima, se obtiene una
+solución alternativa. Se detallan a continuación las dos tablas óptimas de
+ambas soluciones alternativas: 
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ | c | c | c || c | c | c | c | c | c | c | }
+  \hline
+  \(C_i\)  & \(X_i\) & \(B_i\) & \(A_1\) & \(A_2\) & \(A_3\)  & \(A_4\) & \(A_5\)  & \(A_6\) & \(A_7\) \\ \hline
+ \(5000\)  & \(X_1\) & \(1\)   & \(1\)   & \(0\)   & \(0.6\)  & \(0\)   & \(-0.2\) & \(0\)   & \(2\) \\ \hline
+ \(0\)     & \(X_4\) & \(2\)   & \(0\)   & \(0\)   & \(-2.8\) & \(1\)   & \(-0.4\) & \(0\)   & \(-2\) \\ \hline
+  \(0\)    & \(x_6\) & \(2\)   & \(0\)   & \(0\)   & \(0.4\)  & \(0\)   & \(0.2\)  & \(1\)   & \(1\) \\ \hline
+  \(3000\) & \(x_2\) & \(13\)  & \(0\)   & \(1\)   & \(-0.2\) & \(0\)   & \(0.4\)  & \(0\)   & \(0\) \\ \hline \hline
+  \multicolumn{3}{|c|}{ }      & \(0\)   & \(0\)   & \(2400\) & \(0\)   & \(200\)  & \(0\)   & \(0*\) \\ \hline
+\end{tabular}
+\caption{Tabla simplex óptima para el problema con el nuevo producto}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ | c | c | c || c | c | c | c | c | c | c | }
+  \hline
+  \(C_i\)  & \(X_i\) & \(B_i\) & \(A_1\) & \(A_2\) & \(A_3\)  & \(A_4\) & \(A_5\)  & \(A_6\) & \(A_7\) \\ \hline
+ \(10000\) & \(X_7\) & \(0.5\) & \(0.5\) & \(0\)   & \(0.3\)  & \(0\)   & \(-0.1\) & \(0\)   & \(1\) \\ \hline
+ \(0\)     & \(X_4\) & \(3\)   & \(1\)   & \(0\)   & \(-2.2\) & \(1\)   & \(-0.6\) & \(0\)   & \(0\) \\ \hline
+  \(0\)    & \(x_6\) & \(1.5\) & \(-0.5\)& \(0\)   & \(0.1\)  & \(0\)   & \(0.3\)  & \(1\)   & \(0\) \\ \hline
+  \(3000\) & \(x_2\) & \(13\)  & \(0\)   & \(1\)   & \(-0.2\) & \(0\)   & \(0.4\)  & \(0\)   & \(0\) \\ \hline \hline
+  \multicolumn{3}{|c|}{ }      & \(0*\)  & \(0\)   & \(2400\) & \(0\)   & \(200\)  & \(0\)   & \(0\) \\ \hline
+\end{tabular}
+\caption{Tabla simplex óptima para el problema con el nuevo producto, solución alternativa}
+\end{table}
+
+\FloatBarrier
+
+A primer vista, ambas alternativas son válidas. Sin embargo, la segunda
+alternativa implica instalar \(0.5\) máquinas virtuales C, lo que no tiene
+sentido. Por lo que en realidad, la única alternativa posible sigue siendo la
+solución original, con 1 máquina A y 13 máquinas B.
+
+\part{Heurísticas}
+
+\section{Anális de la situación}
+
+Se trata de un problema de cobertura de conjuntos con particiones, donde las
+particiones son las clasificaciones arbitrarias dadas (hombre, mujer, docente,
+alumno, etc.) y se quiere minimizar los elementos a utilizar para cubrir el
+conjunto completo. Además, existe la dificultad adicional de que se desea
+cubrir todo el conjunto de las particiones pero existen limitaciones en cuanto
+a qué elementos se pueden elegir en distintas combinaciones, productos del
+requerimiento de que todos puedan juntarse un día a la semana.
+
+\section{Objetivo}
+
+Determinar las personas que integrarán el comité en un periodo de tiempo
+indeterminado de manera de minimizar la cantidad de personas involucradas.
+
+\section{Hipótesis}
+
+\begin{enumerate}
+
+  \item Todas las personas dentro de cada categoría son equivalentes. El único
+    punto a tener en cuenta es seleccionar al menos una persona de cada tipo
+
+  \item Si bien se busca minimizar la cantidad de personas, no hay un límite
+    fijo a la cantidad de personas a seleccionar de la lista.
+
+\end{enumerate}
+
+\section{Heurística de resolución}
+
+La heurística desarrollada primeramente determinará el día en el que se
+reunirán las personas, de manera de descartar la menor cantidad de personas en
+este proceso. Cabe a destacar que este es un proceso a priori, sin considerar
+los tipos de persona a seleccionar. Se descartan aquellas personas que no
+puedan juntarse en el día seleccionado.
+
+Posteriormente, se toma aquella persona que esté en la mayor cantidad de grupos
+no cubiertos. Se repite el proceso hasta que se hayan cubierto todos los
+grupos.
+
+El algoritmo heurístico se detalla a continuación:
+
+\begin{enumerate}
+
+  \item Confeccionar una tabla con cada día de la semana (de lunes a domingo),
+    y para cada día el número de personas que no pueden reunirse ese día.
+
+  \item Eliminar de la tabla aquellos días para los cuales para alguno de los
+    tipos de persona ninguna de las personas con dicho tipo puede reunirse en
+    ese día.
+
+  \item Ordenar la tabla por número de personas que no pueden reunirse ese día,
+    de menor a mayor. A igual número de personas, ordenar alfabéticamente por
+    nombre del día.
+
+  \item Seleccionar el día correspondiente al primer elemento de la tabla
+    ordenada en 3. Si la tabla es vacía, el problema es incompatible.
+
+  \item Eliminar de la lista de personas aquellas que no pueden reunirse el día
+    seleccionado.
+
+  \item Para cada persona, calcular la cantidad de tipos a los que pertenece
+    que están en la lista de tipos a cubrir.
+
+  \item Ordenar la lista de personas de acuerdo al factor calculado en 6, de
+    mayor a menor. A igualdad de factores, ordenar alfabéticamente.
+
+  \item Seleccionar la primer persona de la lista ordenada. Eliminarla de la
+    lista de personas. Eliminar de la lista de tipos a cubrir los tipos a los
+    que pertenece la persona seleccionada.
+
+  \item Si la lista de tipos a cubrir está vacia, el problema está resuelto. En
+    caso contrario, volver a 6.
+
+\end{enumerate}
+
+Para el problema particular dado, la solución alcanzada es seleccionar a B, H y E.
+
+\section{Análisis de heurística propuesta}
+
+La heurística es simple y concisa, pero tiene algunas limitaciones serias. En
+particular, supone que seleccionar un día para el cual existen la mayor
+cantidad de personas disponibles para reunirse permite llegar a una mejor
+solución. Es fácil pensar en un ejemplo en el que la heurística diste tanto
+como se quiera de la solución óptima. Por ejemplo, si para un día en particular
+para el que se pueden reunir pocas personas hay una persona que pertenece a
+varios tipos diferentes (por ejemplo, un profesor y simultaneamente alumno que
+sólo puede reunirse los viernes), la heurística descartará ese día antes de
+realizar ningún tipo de análisis que la llevaría a tomar a esta persona
+valuable en el comité.
+
+La otra limitación es que es una heurística golosa que toma inicialmente
+aquellas personas que permiten cubrir diferentes tipos, sin tener en cuenta a
+futuro que quizás algunas personas son más convenientes porque hay menos
+personas que cubran estos roles. A medida que avanza la ejecución, se empiezan
+a tomar personas que cubren cada vez menos tipos no cubiertos aún.
+
+\end{document}

@@ -1,0 +1,45 @@
+ MODEL:
+ [FUNCIONAL] MAX= 15 * PP + 12 * PC + 10 * PG
+  - 5 * CM - 8 * CA - 10 * CS - 2 * CC
+  - 0.5 * EM - 0.8 * EA - 1 * ES - 0.2 * EC
+  - 2 * PP - 2 * PC - 2 * PG - EH
+  - 0.5 * PP - 0.5 * PC - 0.5 * PG;
+
+ [DISTRIBUCION_MP_M] CM - MMP - MMC - MMG = 0;
+ [DISTRIBUCION_MP_A] CA - MAP - MAC - MAG = 0;
+ [DISTRIBUCION_MP_S] CS - MSP - MSC - MSG = 0;
+ [DISTRIBUCION_MP_C] CC - MCP - MCC - MCG = 0;
+
+ [COMPOSICION_PP] PP - MMP - MAP - MSP - MCP = 0;
+ [COMPOSICION_PC] PC - MMC - MAC - MSC - MCC = 0;
+ [COMPOSICION_PG] PG - MMG - MAG - MSG - MCG = 0;
+
+ [NUTRIENTES_C_PP] - 0.4 * PP + 0.3 * MMP
+  + 0.25 * MAP + 0.25 * MSP <= 0;
+ [NUTRIENTES_P_PP] - 0.1 * PP + 0.12 * MMP
+  + 0.15 * MAP + 0.18 * MSP >= 0;
+ [NUTRIENTES_F_PP] - 0.6 * PP + 0.58 * MMP
+  + 0.6 * MAP + 0.57 * MSP <= 0;
+
+ [NUTRIENTES_C_PC] - 0.5 * PC + 0.3 * MMC
+  + 0.25 * MAC + 0.25 * MSC <= 0 ;
+ [NUTRIENTES_P_PC] - 0.12 * PC + 0.12 * MMC
+  + 0.15 * MAC + 0.18 * MSC >= 0;
+
+ [NUTRIENTES_C_PG] - 0.35 * PG + 0.3 * MMG
+  + 0.25 * MAG + 0.25 * MSG <= 0;
+ [NUTRIENTES_P_PG] - 0.15 * PG + 0.12 * MMG
+  + 0.15 * MAG + 0.18 * MSG >= 0;
+
+ [DEMANDA_PP] PP <= 5000;
+ [DEMANDA_PC] PC <= 8000;
+ [DEMANDA_PG] PG <= 2500;
+
+ [PACTADO_MP_MAIZ] CM - EM + DM = 7000;
+ [PACTADO_MP_ALFALFA] CA - EA + DA = 5000;
+ [PACTADO_MP_SORGO] CS - ES + DS = 2000;
+ [PACTADO_MP_CASCARA] CC - EC + DC = 10000;
+
+ [HORAS_EXTRA] PP + PC + PG - EH + DH = 14000;
+ [LIMITE_HORAS_EXTRA] EH <= 3000;
+ END
